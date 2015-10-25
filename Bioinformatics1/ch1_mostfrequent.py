@@ -6,18 +6,21 @@ def patternCount(text, pattern):
 			count += 1
 	return count
 
-# find the most frequent pattern(substring) of length k in a given dna
+# find the most frequent patterns(substring) of length k in a given dna
+# answer can be several patterns
 def frequentWord(text, k):
 	freqPTs = {}
+	PTlist = []
 	max = 0
 	for i in range(len(text)-k+1):
 		pattern = text[i:i+k]
 		count = patternCount(text, pattern)
-		freqPTs[i] = count
+		freqPTs[pattern] = count
 		if count >= max :
 			max = count
-			mostPT = pattern
-	return mostPT
+	for pt in freqPTs.keys():
+		if freqPTs[pt] == max:
+			print pt,	
 
 print patternCount('ACTGTACGATGATGTGTGTCAAAG', 'TGT')
 print frequentWord('CGGAGGACTCTAGGTAACGCTTATCAGGTCCATAGGACATTCA', 3)
