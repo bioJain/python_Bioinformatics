@@ -184,3 +184,48 @@ def FreqWordWithMisAndRev(text, k, d):
 	for i in totalSet.keys():
 		if maxcount == totalSet[i] :
 			print i, 
+
+# BA1K
+# Generate the frequency array of a DNA string.
+
+# Given: A DNA string Text and an integer k.
+# Return: The frequency array of k-mers in Text.
+
+def FreqArray(Text, k) :
+	Freq = [0] * 4**k
+	for i in range(len(Text)-k+1) :
+		pattern = Text[i:i+k]
+		index = PatternToNumber(pattern)
+		Freq[index] += 1
+	return Freq
+	
+# BA1L
+# Implement PatternToNumber
+
+# Convert a DNA string to a number.
+# Given: A DNA string Pattern.
+# Return: PatternToNumber(Pattern).
+
+def PatternToNumber(pattern):
+	sym = {'A':0, 'C':1, 'G':2, 'T':3}
+	k = len(pattern)
+	result = 0
+	for i in range(k) :
+		result += sym[pattern[i]]*(4**(k-1-i))
+	return result
+	
+# BA1M
+# Implement NumberToPattern
+
+# Convert an integer to its corresponding DNA string.
+# Given: Integers index and k.
+# Return: NumberToPattern(index, k).
+
+def NumberToPattern(index, k):
+	symrev = {0:'A', 1:'C', 2:'G', 3:'T'}
+	result = ''
+	for i in range(k):
+		symnum = index/(4**(k-1-i))
+		result += symrev[symnum]
+		index = index - symnum*(4**(k-1-i))
+	return result
